@@ -14,7 +14,7 @@ class MinutoInvalido(Exception):
 
     def __init__(self, minuto):
         if not isinstance(minuto, int):
-            mensagem = f"Minuto inválido: {minuto!r}. O minuto deve ser um número inteiro."
+            mensagem = f"Minuto inválido: {minuto}. O minuto deve ser um número inteiro."
         else:
             mensagem = f"Minuto inválido: {minuto}. O minuto deve estar entre 0 e 59."
         super().__init__(mensagem)
