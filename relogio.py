@@ -3,9 +3,9 @@ class HoraInvalida(Exception):
     """Exceção levantada para horas inválidas."""
     def __init__(self, hora):
         if not isinstance(hora, int):
-           mensagem = f"Hora inválida: {hora}. A hora deve ser um número inteiro."
+              mensagem = f"Hora inválida: {hora!r}. A hora deve ser um número inteiro."
         else:
-           mensagem = f"Hora inválida: {hora}. A hora deve estar entre 0 e 23."
+           mensagem = f"Hora inválida: {hora!r}. A hora deve estar entre 0 e 23."
         super().__init__(mensagem)
 
 
@@ -14,18 +14,20 @@ class MinutoInvalido(Exception):
 
     def __init__(self, minuto):
         if not isinstance(minuto, int):
-            mensagem = f"Minuto inválido: {minuto}. O minuto deve ser um número inteiro."
+            mensagem = f"Minuto inválido: {minuto!r}. O minuto deve ser um número inteiro."
         else:
-            mensagem = f"Minuto inválido: {minuto}. O minuto deve estar entre 0 e 59."
+            mensagem = f"Minuto inválido: {minuto!r}. O minuto deve estar entre 0 e 59."
         super().__init__(mensagem)
 
 
 class SegundoInvalido(Exception):
     """Exceção levantada para segundos inválidos."""
-
-    # def __init__(self, segundo):
-    #    super().__init__("Mensagem de erro")
-    raise NotImplementedError("To-do")
+    def __init__(self, segundo):
+        if not isinstance(segundo, int):
+            mensagem = f"Segundo inválido: {segundo!r}. O segundo deve ser um número inteiro."
+        else:
+            mensagem = f"Segundo inválido: {segundo!r}. O segundo deve estar entre 0 e 59."
+        super().__init__(mensagem)
 
 
 class Relogio:
@@ -58,7 +60,14 @@ class Relogio:
         :raises MinutoInvalido: Se o minuto é inválido (não inteiro ou fora de 0-59).
         :raises SegundoInvalido: Se o segundo é inválido (não inteiro ou fora de 0-59).
         """
-        raise NotImplementedError("To-do")
+        if not isinstance(horas, int) or not 0 <= horas <= 23:
+            raise HoraInvalida(horas)
+
+        if not isinstance(minutos, int) or not 0 <= minutos <= 59:
+            raise MinutoInvalido(minutos)
+
+        if not isinstance(segundos, int) or not 0 <= segundos <= 59:
+            raise SegundoInvalido(segundos)
 
     def tick(self):
         """Avança o relógio em um segundo."""
