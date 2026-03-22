@@ -71,4 +71,12 @@ class Relogio:
 
     def tick(self):
         """Avança o relógio em um segundo."""
-        raise NotImplementedError("To-do")
+        self.segundos += 1
+        if self.segundos == 60:
+            self.segundos = 0
+            self.minutos += 1
+            if self.minutos == 60:
+                self.minutos = 0
+                self.horas += 1
+                if self.horas == 24:
+                    self.horas = 0
