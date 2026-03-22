@@ -80,3 +80,29 @@ class Relogio:
                 self.horas += 1
                 if self.horas == 24:
                     self.horas = 0
+
+    def converter_segundos(self):
+        """Converte o horário atual para quantidade total de segundos."""
+        return self.horas * 3600 + self.minutos * 60 + self.segundos
+
+    def soma(self, outro_relogio):
+        """Soma dois horários com retorno no intervalo de 24 horas."""
+        if not isinstance(outro_relogio, Relogio):
+            raise TypeError("outro_relogio deve ser uma instância de Relogio")
+
+        total = (self.converter_segundos() + outro_relogio.converter_segundos()) % (24 * 3600)
+        horas = total // 3600
+        minutos = (total % 3600) // 60
+        segundos = total % 60
+        return Relogio(horas, minutos, segundos)
+
+    def diferenca(self, outro_relogio):
+        """Subtrai dois horários com retorno no intervalo de 24 horas."""
+        if not isinstance(outro_relogio, Relogio):
+            raise TypeError("outro_relogio deve ser uma instância de Relogio")
+
+        total = (self.converter_segundos() - outro_relogio.converter_segundos()) % (24 * 3600)
+        horas = total // 3600
+        minutos = (total % 3600) // 60
+        segundos = total % 60
+        return Relogio(horas, minutos, segundos)
