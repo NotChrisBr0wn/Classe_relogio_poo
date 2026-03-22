@@ -12,9 +12,12 @@ class HoraInvalida(Exception):
 class MinutoInvalido(Exception):
     """Exceção levantada para minutos inválidos."""
 
-    # def __init__(self, minuto):
-    #    super().__init__("Mensagem de erro")
-    raise NotImplementedError("To-do")
+    def __init__(self, minuto):
+        if not isinstance(minuto, int):
+            mensagem = f"Minuto inválido: {minuto!r}. O minuto deve ser um número inteiro."
+        else:
+            mensagem = f"Minuto inválido: {minuto}. O minuto deve estar entre 0 e 59."
+        super().__init__(mensagem)
 
 
 class SegundoInvalido(Exception):
