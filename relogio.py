@@ -45,7 +45,7 @@ class Relogio:
 
     def __str__(self):
         """Retorna a hora no formato HH:MM:SS"""
-        raise NotImplementedError("To-do")
+        return f"{self.horas:02d}:{self.minutos:02d}:{self.segundos:02d}"
 
     @staticmethod
     def validar_hora(horas, minutos, segundos):
