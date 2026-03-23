@@ -106,3 +106,12 @@ class Relogio:
         minutos = (total % 3600) // 60
         segundos = total % 60
         return Relogio(horas, minutos, segundos)
+
+    def formato_12h(self):
+        """Retorna a hora no formato 12h (AM/PM)."""
+        periodo = "AM" if self.horas < 12 else "PM"
+        hora_12 = self.horas % 12
+        if hora_12 == 0:
+            hora_12 = 12
+
+        return f"{hora_12:02d}:{self.minutos:02d}:{self.segundos:02d} {periodo}"
