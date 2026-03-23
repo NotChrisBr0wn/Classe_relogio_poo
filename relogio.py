@@ -108,10 +108,6 @@ class Relogio:
         segundos = total_ajustado % 60
         return cls(horas, minutos, segundos, fuso_horario=fuso_horario)
 
-    @classmethod
-    def de_segundos(cls, total_segundos, fuso_horario=0):
-        """Alias para criar Relogio a partir de segundos totais."""
-        return cls.tot_segundos(total_segundos, fuso_horario=fuso_horario)
 
     def soma(self, outro_relogio):
         """Soma dois horários com retorno no intervalo de 24 horas."""
