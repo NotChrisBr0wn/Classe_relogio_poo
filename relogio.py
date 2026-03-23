@@ -37,16 +37,24 @@ class Relogio:
     Se for instanciada com valores inválidos, levanta uma exceção específica.
     """
 
-    def __init__(self, horas, minutos, segundos):
+    def __init__(self, horas, minutos, segundos, fuso_horario=0):
         Relogio.validar_hora(horas, minutos, segundos)
+        if not isinstance(fuso_horario, int):
+            raise TypeError("fuso_horario deve ser um número inteiro")
         self.horas = horas
         self.minutos = minutos
         self.segundos = segundos
+        self.fuso_horario = fuso_horario
         self.alarme = None
+
+    def horario(self):
+        """Retorna a hora ajustada ao fuso horário no intervalo de 24 horas."""
+        return (self.horas + self.fuso_horario) % 24
 
     def __str__(self):
         """Retorna a hora no formato HH:MM:SS"""
-        return f"{self.horas:02d}:{self.minutos:02d}:{self.segundos:02d}"
+        horas = self.horario()
+        return f"{horas:02d}:{self.minutos:02d}:{self.segundos:02d}"
 
     @staticmethod
     def validar_hora(horas, minutos, segundos):
@@ -110,8 +118,9 @@ class Relogio:
 
     def formato_12h(self):
         """Retorna a hora no formato 12h (AM/PM)."""
-        periodo = "AM" if self.horas < 12 else "PM"
-        hora_12 = self.horas % 12
+        horas = self.horario()
+        periodo = "AM" if horas < 12 else "PM"
+        hora_12 = horas % 12
         if hora_12 == 0:
             hora_12 = 12
 
