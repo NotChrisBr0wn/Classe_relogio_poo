@@ -42,6 +42,7 @@ class Relogio:
         self.horas = horas
         self.minutos = minutos
         self.segundos = segundos
+        self.alarme = None
 
     def __str__(self):
         """Retorna a hora no formato HH:MM:SS"""
@@ -115,3 +116,16 @@ class Relogio:
             hora_12 = 12
 
         return f"{hora_12:02d}:{self.minutos:02d}:{self.segundos:02d} {periodo}"
+
+    def definir_alarme(self, horas, minutos, segundos):
+        """Define o horário do alarme no formato HH:MM:SS."""
+        Relogio.validar_hora(horas, minutos, segundos)
+        self.alarme = (horas, minutos, segundos)
+
+    def verificar_alarme(self):
+        """Retorna True quando a hora atual coincide com o alarme definido."""
+        if self.alarme is None:
+            return False
+
+        return (self.horas, self.minutos, self.segundos) == self.alarme
+
