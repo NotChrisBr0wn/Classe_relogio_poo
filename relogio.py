@@ -94,6 +94,25 @@ class Relogio:
         """Converte o horário atual para quantidade total de segundos."""
         return self.horas * 3600 + self.minutos * 60 + self.segundos
 
+    @classmethod
+    def tot_segundos(cls, total_segundos, fuso_horario=0):
+        """Cria uma instância de Relogio a partir de um total de segundos."""
+        if not isinstance(total_segundos, int):
+            raise TypeError("total_segundos deve ser um número inteiro")
+
+        segundos_no_dia = 24 * 3600
+        total_ajustado = total_segundos % segundos_no_dia
+
+        horas = total_ajustado // 3600
+        minutos = (total_ajustado % 3600) // 60
+        segundos = total_ajustado % 60
+        return cls(horas, minutos, segundos, fuso_horario=fuso_horario)
+
+    @classmethod
+    def de_segundos(cls, total_segundos, fuso_horario=0):
+        """Alias para criar Relogio a partir de segundos totais."""
+        return cls.tot_segundos(total_segundos, fuso_horario=fuso_horario)
+
     def soma(self, outro_relogio):
         """Soma dois horários com retorno no intervalo de 24 horas."""
         if not isinstance(outro_relogio, Relogio):
